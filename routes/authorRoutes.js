@@ -15,7 +15,9 @@ router.get('/getAllAuthors', async (req, res) => {
 
 // New Author Route
 router.get('/new', (req, res) => {
-  res.render('authors/new', { author: new Author(), authorBaseUrl: `${process.env.AUTHOR_BASEURL}` })
+  res.render('authors/new', { author: new Author(), 
+    // authorBaseUrl: `${process.env.AUTHOR_BASEURL}`
+   })
 })
 
 //Get author details by Book Id
@@ -32,7 +34,7 @@ router.get('/getById', async (req, res) => {
 // Get an Author by Id
 router.get('/:id', async (req, res) => {
   const errorMessage = req.query.errorMessage ?? null
-  const accessToken = req.cookies.accessToken
+  const accessToken = req.accessToken
   try {
     const author = await Author.findById(req.params.id)
     const books = await axios.get(`${process.env.BOOKS_BASEURL}/books/getByAuthorId?id=${author.id}`, {
@@ -42,9 +44,9 @@ router.get('/:id', async (req, res) => {
     });
     res.render('authors/show', {
       author: author,
-      booksByAuthor: books,
-      authorBaseUrl: `${process.env.AUTHOR_BASEURL}`,
-      booksBaseUrl: `${process.env.BOOKS_BASEURL}`,
+      books: books,
+      // authorBaseUrl: `${process.env.AUTHOR_BASEURL}`,
+      // booksBaseUrl: `${process.env.BOOKS_BASEURL}`,
       errorMessage
     })
   } catch (error) {
@@ -56,7 +58,9 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
   try {
     const author = await Author.findById(req.params.id)
-    res.render('authors/edit', { author: author, authorBaseUrl: `${process.env.AUTHOR_BASEURL}` })
+    res.render('authors/edit', { author: author, 
+      // authorBaseUrl: `${process.env.AUTHOR_BASEURL}` 
+    })
   } catch {
     res.redirect('/authors')
   }
@@ -73,7 +77,7 @@ router.get('/', async (req, res) => {
     res.render('authors/index', {
       authors: authors,
       searchOptions: req.query,
-      authorBaseUrl: `${process.env.AUTHOR_BASEURL}`
+      // authorBaseUrl: `${process.env.AUTHOR_BASEURL}`
     })
   } catch {
     res.redirect('/authors')
@@ -92,7 +96,7 @@ router.post('/', async (req, res) => {
     res.render('authors/new', {
       author: author,
       errorMessage: 'Error creating an Author',
-      authorBaseUrl: `${process.env.AUTHOR_BASEURL}`
+      // authorBaseUrl: `${process.env.AUTHOR_BASEURL}`
     })
   }
 })
@@ -111,7 +115,7 @@ router.put('/:id', async (req, res) => {
       res.render('authors/edit', {
         author: author,
         errorMessage: 'Error updating Author',
-        authorBaseUrl: `${process.env.AUTHOR_BASEURL}`
+        // authorBaseUrl: `${process.env.AUTHOR_BASEURL}`
       })
     }
   }

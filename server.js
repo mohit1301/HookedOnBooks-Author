@@ -8,8 +8,12 @@ const PORT = process.env.AUTHOR_PORT || 3001
 require('./dbConfig/config')
 const getNewAccessToken = require('./middleware/getNewAccessToken')
 
-// const passport = require('./passport')
-// app.use(passport.initialize())
+const cors = require('cors')
+
+app.use(cors({
+    origin: `${process.env.AUTH_URL}`,
+    credentials: true, 
+}))
 
 app.use(cookieParser())
 app.use(expressLayouts)
@@ -23,11 +27,9 @@ app.use(express.urlencoded({ limit: '10mb', extended: false }))
 const authorRouter = require('./routes/authorRoutes')
 const authenticate = require('./middleware/authMiddleware')
 
-// app.use(passport.authenticate('jwt', { session: false }));
 app.use(authenticate)
 app.use((req, res, next) => {
     if (req.errorMessage === 'JsonWebTokenError') {
-        console.log('Jsonwebtoken error occurred. Redirecting to login')
         res.redirect(`${process.env.AUTH_BASEURL}/auth/login`)
     }
     else if (req.errorMessage === 'TokenExpired') {

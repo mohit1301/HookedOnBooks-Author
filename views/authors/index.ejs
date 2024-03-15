@@ -1,5 +1,5 @@
 <h2 class="page-header">Search Authors</h2>
-<form action="http://localhost:3001/authors" method="GET">
+<form action="<%= locals.authorBaseUrl %>/authors" method="GET">
   <div class="form-row">
     <div class="form-item">
       <label>Name</label>
@@ -15,10 +15,9 @@
   <div class="author-row">
     <div class="author-name"><%= author.name %></div>
     <div class="btn-row">
-      <a class="btn btn-primary" href="http://localhost:3001/authors/<%= author.id %>">View</a>
-      <a class="btn btn-primary" href="http://localhost:3001/authors/<%= author.id %>/edit">Edit</a>
-      <%- include('../partials/deleteForm',
-                  { url: `http://localhost:3001/authors/${author.id}` }) %>
+      <a class="btn btn-primary" href="<%= locals.authorBaseUrl %>/authors/<%= author.id %>">View</a>
+      <a class="btn btn-primary" href="<%= locals.authorBaseUrl %>/authors/<%= author.id %>/edit">Edit</a>
+      <%- include('../partials/deleteForm', { url: locals.authorBaseUrl + '/authors/' + author.id }) %>
     </div>
   </div>
 <% }) %>
