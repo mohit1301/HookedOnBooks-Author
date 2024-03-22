@@ -4,8 +4,8 @@
     <ul>
       <li><a href="<%= locals.authorBaseUrl %>/authors">Authors</a></li>
       <li><a href="<%= locals.authorBaseUrl %>/authors/new">Add Author</a></li>
-      <li><a href="<%= locals.booksBaseUrl %>/books<%= locals.accessToken ? '?accessToken=' + locals.accessToken + '?refreshToken=' + locals.refreshToken : '' %>">Books</a></li>
-      <li><a href="<%= locals.booksBaseUrl %>/books/new<%= locals.accessToken ? '?accessToken=' + locals.accessToken + '?refreshToken=' + locals.refreshToken : '' %>">Add Book</a></li>
+      <li><a href="<%= locals.booksBaseUrl %>/books<%= locals.accessToken ? '?accessToken=' + locals.accessToken + '&refreshToken=' + locals.refreshToken : '' %>">Books</a></li>
+      <li><a href="<%= locals.booksBaseUrl %>/books/new<%= locals.accessToken ? '?accessToken=' + locals.accessToken + '&refreshToken=' + locals.refreshToken : '' %>">Add Book</a></li>
       <% if (locals.isAuthenticated) { %>
         <li><a href="<%= locals.authBaseUrl %>/auth/logout">Logout</a></li>
         <% } %>

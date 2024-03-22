@@ -15,9 +15,10 @@ router.get('/getAllAuthors', async (req, res) => {
 
 // New Author Route
 router.get('/new', (req, res) => {
-  res.render('authors/new', { author: new Author(), 
+  res.render('authors/new', {
+    author: new Author(),
     // authorBaseUrl: `${process.env.AUTHOR_BASEURL}`
-   })
+  })
 })
 
 //Get author details by Book Id
@@ -58,9 +59,7 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
   try {
     const author = await Author.findById(req.params.id)
-    res.render('authors/edit', { author: author, 
-      // authorBaseUrl: `${process.env.AUTHOR_BASEURL}` 
-    })
+    res.render('authors/edit', { author: author })
   } catch {
     res.redirect('/authors')
   }
@@ -76,8 +75,7 @@ router.get('/', async (req, res) => {
     const authors = await Author.find(searchOptions)
     res.render('authors/index', {
       authors: authors,
-      searchOptions: req.query,
-      // authorBaseUrl: `${process.env.AUTHOR_BASEURL}`
+      searchOptions: req.query
     })
   } catch {
     res.redirect('/authors')
@@ -95,8 +93,7 @@ router.post('/', async (req, res) => {
   } catch {
     res.render('authors/new', {
       author: author,
-      errorMessage: 'Error creating an Author',
-      // authorBaseUrl: `${process.env.AUTHOR_BASEURL}`
+      errorMessage: 'Error creating an Author'
     })
   }
 })
@@ -114,8 +111,7 @@ router.put('/:id', async (req, res) => {
     } else {
       res.render('authors/edit', {
         author: author,
-        errorMessage: 'Error updating Author',
-        // authorBaseUrl: `${process.env.AUTHOR_BASEURL}`
+        errorMessage: 'Error updating Author'
       })
     }
   }
