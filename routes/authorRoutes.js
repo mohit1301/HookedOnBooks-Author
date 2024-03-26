@@ -36,11 +36,13 @@ router.get('/getById', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const errorMessage = req.query.errorMessage ?? null
   const accessToken = req.accessToken
+  const refreshToken = req.refreshToken
   try {
     const author = await Author.findById(req.params.id)
     const books = await axios.get(`${process.env.BOOKS_BASEURL}/books/getByAuthorId?id=${author.id}`, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
+        'Refresh-Token': `${refreshToken}`
       }
     });
     res.render('authors/show', {
@@ -119,6 +121,8 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   const accessToken = req.cookies.accessToken
+  const refreshToken = req.refreshToken
+  
   try {
     const author = await Author.findById(req.params.id)
     if (!author) {
@@ -129,6 +133,7 @@ router.delete('/:id', async (req, res) => {
     const books = await axios.get(`${process.env.BOOKS_BASEURL}/books/getByAuthorId?id=${author.id}`, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
+        'Refresh-Token': `${refreshToken}`
       }
     });
 
