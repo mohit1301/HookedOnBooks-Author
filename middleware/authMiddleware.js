@@ -1,6 +1,17 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken')
 
+const encodeToken = (token) => {
+
+    // Base64 encode the token
+    const base64Token = Buffer.from(token).toString('base64');
+
+    // URL encode the base64 encoded token
+    const encodedToken = encodeURIComponent(base64Token);
+
+    return encodedToken
+}
+
 // Function to extract token from cookies
 const extractTokens = function (req, res) {
     let accessToken = null;
@@ -26,7 +37,7 @@ const extractTokens = function (req, res) {
         refreshToken = req.cookies.refreshToken;
     }
 
-    else if(res.locals.accessToken){
+    else if (res.locals.accessToken){
 
         accessToken = res.locals.accessToken
         refreshToken = res.locals.refreshToken
@@ -67,8 +78,8 @@ const authenticate = function (req, res, next) {
                 res.locals.authorBaseUrl = process.env.AUTHOR_BASEURL
                 res.locals.booksBaseUrl = process.env.BOOKS_BASEURL
                 res.locals.authBaseUrl = process.env.AUTH_BASEURL
-                res.locals.accessToken = accessToken
-                res.locals.refreshToken = refreshToken
+                res.locals.accessToken = encodeToken(accessToken)
+                res.locals.refreshToken = encodeToken(refreshToken)
                 res.locals.isAuthenticated = true;
                 next();
             }
