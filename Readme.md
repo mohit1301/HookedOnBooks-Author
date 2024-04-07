@@ -29,7 +29,7 @@ To run the Author service locally, follow these steps:
 2.  Install dependencies:
 
     ```bash
-    cd hookedonbooks-author
+    cd HookedOnBooks-Author
     npm install
     ```
 
