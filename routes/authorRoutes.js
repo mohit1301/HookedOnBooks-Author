@@ -17,7 +17,6 @@ router.get('/getAllAuthors', async (req, res) => {
 router.get('/new', (req, res) => {
   res.render('authors/new', {
     author: new Author(),
-    // authorBaseUrl: `${process.env.AUTHOR_BASEURL}`
   })
 })
 
@@ -48,8 +47,6 @@ router.get('/:id', async (req, res) => {
     res.render('authors/show', {
       author: author,
       books: books,
-      // authorBaseUrl: `${process.env.AUTHOR_BASEURL}`,
-      // booksBaseUrl: `${process.env.BOOKS_BASEURL}`,
       errorMessage
     })
   } catch (error) {
